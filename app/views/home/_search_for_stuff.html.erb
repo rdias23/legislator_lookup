@@ -1,7 +1,7 @@
 <div id="new_venue_form">
 	<fieldset class="fieldset">
 	<legend> Lookup Legislator Information by Address! </legend>
-	<%= form_for(:venue, remote: true,  url: {action: "new_venue"}, html: {class: "nifty form"}) do |f| %>
+	<%= form_for(@venue, remote: true,  url: {action: "new_venue"}, html: {class: "nifty form"}) do |f| %>
 		<%= hidden_field_tag(:user_id, @user.id) %>
 
 	<div id="street_number_info">

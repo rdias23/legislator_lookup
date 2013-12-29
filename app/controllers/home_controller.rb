@@ -4,7 +4,7 @@ class HomeController < ApplicationController
   def index
 	@user = current_user
 	@button_label = "Lookup!"
-	@venue = Venue.last
+	@venue = Venue.new
   end
 
   def landing
@@ -15,23 +15,13 @@ class HomeController < ApplicationController
 
   def new_venue
 	@user = User.find(params[:user_id])
-	@address_string = String.new
-	@address_string += params[:venue][:streetnumber]
-	@address_string += " "
-	@address_string += params[:venue][:streetname]
-	@address_string += ", "
-	@address_string += params[:venue][:city]
-	@address_string += ", "
-	@address_string += params[:venue][:state]
-	@address_string += " "
-	@address_string += params[:venue][:zipcode]
-	@address_string += ", USA"
-	
-	params[:address] = @address_string
+
+	@space_string = " "
+	@comma_space_string = ", "
+	@comma_usa = ", USA"	
+	params[:venue][:address] = params[:venue][:streetnumber] += @space_string += params[:venue][:streetname] += @comma_space_string += params[:venue][:city] += @space_string += params[:venue][:state]  += @space_string += params[:venue][:zipcode] += @comma_usa
 
 	@venue = Venue.create(venue_params)
-	@venue.address = @address_string.to_s
-	@venue.save	
 
     respond_to do |format|
         format.js {render :layout => false}
