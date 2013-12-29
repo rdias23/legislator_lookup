@@ -1,0 +1,62 @@
+<!-- Navigation -->
+
+<nav class="top-bar nav">
+  <ul class="title-area">
+    <!-- Title Area -->
+    <li class="name">
+	<h1 style="margin-left: 10px;">
+
+	<a href="/">
+		Legislator Lookup!
+	</a>
+	</h1>
+   </li>
+ </ul>
+
+ <section class="top-bar-section">
+   <ul class="left">
+    <% if @auth.blank? %>
+	<li class='name'><h1><%= link_to('Login', '#', :'data-reveal-id' => 'login') %></h1></li>
+	<li class='name' data-position=right data-intro="Click here to Register"><h1><%= link_to('Register', '#', :'data-reveal-id' => 'register' ) %> </h1> </li>
+    <% end %>
+
+  <% if @auth.present? %> <!-- only show the below if logged in -->
+	  <li class='has-dropdown' data-position=right data-intro='Click here to Log Out'>
+		<%= link_to('Hello, ' + @auth.first_name + '!', '#') %>
+	<ul class="dropdown">
+		<li><%= link_to('Logout', '/users/sign_out', :method => :delete ) %> </li>
+	</ul>
+	</li>
+  <% else %>
+  <% end %>
+
+
+</ul>
+
+
+</section>
+</nav>
+
+<div id="login" class="reveal-modal [small]">
+  <%= render :template => "devise/sessions/new",
+		    :locals => {
+		      :resource => User.new,
+		      :resource_name => :user } %>
+  <a class="close-reveal-modal">&#215;</a>
+</div>
+
+<div id="register" class="reveal-modal [small]">
+  <%= render :template => "devise/registrations/new", 
+                    :locals => { 
+                      :resource => User.new, 
+                      :resource_name => :user } %>
+  <a class="close-reveal-modal">&#215;</a>
+</div>
+
+<div id="forgot_password" class="reveal-modal [small]">
+  <%= render :template => "devise/passwords/new",
+                    :locals => {
+                      :resource => User.new,
+                      :resource_name => :user } %>
+  <a class="close-reveal-modal">&#215;</a>
+</div>
