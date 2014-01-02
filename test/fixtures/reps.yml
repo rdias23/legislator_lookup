@@ -1,0 +1,57 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  first_name: MyString
+  middle_name: MyString
+  last_name: MyString
+  name_suffix: MyString
+  gender: MyString
+  title: MyString
+  bioguide_id: MyString
+  birthday: MyString
+  chamber: MyString
+  contact_form: MyString
+  district: 1
+  facebook_id: MyString
+  fax: MyString
+  in_office: false
+  nickname: MyString
+  office: MyString
+  party: MyString
+  phone: MyString
+  state: MyString
+  state_name: MyString
+  term_end: MyString
+  term_start: MyString
+  twitter_id: MyString
+  website: MyString
+  youtube_id: MyString
+  venue_id: 
+
+two:
+  first_name: MyString
+  middle_name: MyString
+  last_name: MyString
+  name_suffix: MyString
+  gender: MyString
+  title: MyString
+  bioguide_id: MyString
+  birthday: MyString
+  chamber: MyString
+  contact_form: MyString
+  district: 1
+  facebook_id: MyString
+  fax: MyString
+  in_office: false
+  nickname: MyString
+  office: MyString
+  party: MyString
+  phone: MyString
+  state: MyString
+  state_name: MyString
+  term_end: MyString
+  term_start: MyString
+  twitter_id: MyString
+  website: MyString
+  youtube_id: MyString
+  venue_id: 

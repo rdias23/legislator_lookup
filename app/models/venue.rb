@@ -3,7 +3,8 @@ class Venue < ActiveRecord::Base
   after_validation :geocode
 
   belongs_to :user
-
+  has_many :reps, dependent: :destroy
+  has_many :sens, dependent: :destroy
 
 
 

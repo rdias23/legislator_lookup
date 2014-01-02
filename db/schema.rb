@@ -11,7 +11,75 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131228173750) do
+ActiveRecord::Schema.define(version: 20131229224032) do
+
+  create_table "reps", force: true do |t|
+    t.string   "first_name"
+    t.string   "middle_name"
+    t.string   "last_name"
+    t.string   "name_suffix"
+    t.string   "gender"
+    t.string   "title"
+    t.string   "bioguide_id"
+    t.string   "birthday"
+    t.string   "chamber"
+    t.string   "contact_form"
+    t.integer  "district"
+    t.string   "facebook_id"
+    t.string   "fax"
+    t.boolean  "in_office"
+    t.string   "nickname"
+    t.string   "office"
+    t.string   "party"
+    t.string   "phone"
+    t.string   "state"
+    t.string   "state_name"
+    t.string   "term_end"
+    t.string   "term_start"
+    t.string   "twitter_id"
+    t.string   "website"
+    t.string   "youtube_id"
+    t.integer  "venue_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "reps", ["venue_id"], name: "index_reps_on_venue_id"
+
+  create_table "sens", force: true do |t|
+    t.string   "first_name"
+    t.string   "middle_name"
+    t.string   "last_name"
+    t.string   "name_suffix"
+    t.string   "gender"
+    t.string   "title"
+    t.string   "bioguide_id"
+    t.string   "birthday"
+    t.string   "chamber"
+    t.string   "contact_form"
+    t.integer  "district"
+    t.string   "facebook_id"
+    t.string   "fax"
+    t.boolean  "in_office"
+    t.string   "nickname"
+    t.string   "office"
+    t.string   "party"
+    t.string   "phone"
+    t.string   "state"
+    t.string   "state_name"
+    t.string   "term_end"
+    t.string   "term_start"
+    t.string   "twitter_id"
+    t.string   "website"
+    t.string   "youtube_id"
+    t.string   "state_rank"
+    t.string   "senate_class"
+    t.integer  "venue_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sens", ["venue_id"], name: "index_sens_on_venue_id"
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

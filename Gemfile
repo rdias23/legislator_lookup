@@ -49,3 +49,5 @@ gem 'devise'
 gem 'zurb-foundation', '~> 4.0.0'
 
 gem "geocoder"
+
+gem "rest-client", "~> 1.6.7"

@@ -1,0 +1,18 @@
+<script type="text/javascript">
+
+$(document).ready(function() {
+var venue_id = "<%=j @venue.id.to_s %>";
+
+$('#edit_venue_' + venue_id ).click(function() {
+	$(this).addClass("hide");	
+})
+
+})
+</script>
+
+<%= form_for(@venue, remote:true, url: {action: "bookmark_venue"}, html: {class: "nifty form"}) do |t| %>
+  <%= hidden_field_tag(:user_id, @venue.user.id) %>
+  <%= hidden_field_tag(:id, @venue.id) %>
+  <%= t.submit "Bookmark", :class => 'button small radius alert', :id => 'bookmark_that_venue' %>
+
+<% end %>

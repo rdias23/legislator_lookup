@@ -59,4 +59,8 @@ Legislatorlookup::Application.routes.draw do
 
   root :to => 'home#landing'
   post 'new_venue' => 'home#new_venue'
+  get 'new_venue' => 'home#new_venue'
+
+  post 'bookmark_venue' => 'home#bookmark_venue'
+  patch 'bookmark_venue' => 'home#bookmark_venue'
 end

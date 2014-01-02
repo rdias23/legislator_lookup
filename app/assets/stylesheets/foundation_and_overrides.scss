@@ -1030,6 +1030,14 @@
 	background-color: white;
 }
 
+
+#new_venue_form {
+	overflow: scroll;
+		fieldset.fieldset {
+			margin-top: 0px;
+		}
+}
+
 #venue_information {
 	background-color: white;
 	min-height: 660px;
@@ -1060,4 +1068,50 @@ div#new_venue_submit {
 
 div#div_new_venue_submit input {
 	width: 1120px;
+}
+
+div#vi_float_right_top {
+	float: right;
+	border-style:solid;
+	border-width:5px;
+	width: 46%;
+
+	        div#vi_address {
+                color: red;
+                font-size: 1.5em;
+		padding-bottom: 5px;
+		background-color: black;
+        }
+}
+
+.red {
+	color: red;
+}
+
+div#bookmark_flash_notice {
+	text-align: center;
+}
+
+div#vi_float_left_top {
+	float: left;
+	width: 54%;
+}
+
+input#bookmark_that_venue {
+	width: 100%;
+}
+
+div#rep_image_info_div, div#sen_senior_image_info_div, div#sen_junior_image_info_div {
+	width: 33.3333%;
+	float: left;
+}
+
+form[id*='edit_venue_'], input#bookmark_that_venue {
+	margin-bottom: 0px;
+}
+
+div.congress_type_title {
+	text-align: center;
+	font-size: 1.5em;
+	background-color: black;
 }

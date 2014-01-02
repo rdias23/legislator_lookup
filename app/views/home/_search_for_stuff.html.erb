@@ -1,7 +1,7 @@
 <div id="new_venue_form">
 	<fieldset class="fieldset">
 	<legend> Lookup Legislator Information by Address! </legend>
-	<%= form_for(@venue, remote: true,  url: {action: "new_venue"}, html: {class: "nifty form"}) do |f| %>
+	<%= form_for(:venue, remote: true,  url: {action: "new_venue"}, html: {class: "nifty form"}) do |f| %>
 		<%= hidden_field_tag(:user_id, @user.id) %>
 
 	<div id="street_number_info">
@@ -21,7 +21,7 @@
 
 	<div id="state_info">
 		<%= f.label :state, "State" %>
-		<%= f.select(:state, [['Please select an option', nil], 'Alabama', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming']) %>
+		<%= f.select(:state, [['Please select an option', nil], 'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming']) %>
 	</div>
 
 	<div id="zipcode_info">
@@ -30,7 +30,7 @@
 	</div>
 
 	<div id="div_new_venue_submit">
-		<%= f.submit @button_label, :class => 'radius button hidden tiny secondary', :id => 'new_venue_submit_button', :remote => "true" %>
+		<%= f.submit @button_label, :class => 'radius button hidden tiny secondary', :id => 'new_venue_submit_button', :disable_with=>"Loading..." %>
 	</div>
 	<% end %>	
 	</fieldset>
