@@ -1115,3 +1115,25 @@ div.congress_type_title {
 	font-size: 1.5em;
 	background-color: black;
 }
+
+div#bookmark_flash_notice {
+	background-color: black;
+	height: 30px;
+}
+
+div#rep_and_sens_pictures {
+	color: red;
+}
+
+div#rep_image_info_div, div#sen_senior_image_info_div, div#sen_junior_image_info_div {
+	background-color: black;
+}
+
+div.committee_name {
+	font-size: .8em;
+	font-style: italic;
+}
+
+div#rep_name, div#sen_junior_name, div#sen_senior_name {
+	font-size: 1.4em;
+}

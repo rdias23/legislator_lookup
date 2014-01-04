@@ -1,6 +1,5 @@
 <div id="venue_information">
 
-
 <div id="vi_float_left_top">
 
 <div id="vi_bookmark_button">
@@ -15,32 +14,117 @@
 		<div class="red congress_type_title"> Representative </div>
         	<%= image_tag(@rep_image_ref, alt: "rep_image", width: "100%") %>
 		<div id="rep_name"> 
-			<%= @rep.first_name %> <%= @rep.middle_name %> <%= @rep.last_name %> <%= @rep.name_suffix %>(<%= @rep.party %>)
+			<strong><%= @rep.first_name %> <%= @rep.middle_name %> <%= @rep.last_name %> <%= @rep.name_suffix %>(<%= @rep.party %>) </strong>
 		</div>
 		<div id="rep_district">
 			District: <%= @rep.district %>		
 		</div>
-		
+		<div id="rep_term_start">
+			Term Start: <%= @rep.term_start %>
+		</div>
+		<div id="rep_term_end">
+			Term End: <%= @rep.term_end %>
+		</div>
+		<div id="rep_website">
+			<%= link_to @rep.website, @rep.website, :target => "_blank" %> 
+		</div>
+	
+		<div id="rep_coms">
+			Committee Memberships:
+			<% @counter_rep_coms = 1 %>
+			<% @rep_coms.each do |rc| %>
+				<div class="committee_name"> <%= @counter_rep_coms %>. <%= rc.name %> ( <%= rc.chamber %> ) </div> 
+			<% @counter_rep_coms += 1 %>
+			<% end %>	
+		</div>
+
+		<div id="rep_subcoms">
+			Subcommittee Memberships:
+			<% @counter_rep_subcoms = 1 %>
+			<% @rep_subcoms.each do |rsc| %>
+				<div class="committee_name"> <%= @counter_rep_subcoms %>. <%= rsc.name %> ( <%= rsc.chamber %> ) </div>
+			<% @counter_rep_subcoms += 1 %>
+			<% end %>
+
+		</div>
 	</div>
 	<div id="sen_senior_image_info_div">
 		<div class="red congress_type_title"> Senator </div>
         	<%= image_tag(@sen_senior_image_ref, alt: "sen_senior_image", width: "100%") %>
 		<div id="sen_senior_name"> 
-			<%= @sen_sen.first_name %> <%= @sen_sen.middle_name %> <%= @sen_sen.last_name %> <%= @sen_sen.name_suffix %>(<%= @sen_sen.party %>) 
+		<strong><%= @sen_sen.first_name %> <%= @sen_sen.middle_name %> <%= @sen_sen.last_name %> <%= @sen_sen.name_suffix %>(<%= @sen_sen.party %>) </strong>
 		</div>
 		<div id="sen_sen_rank_and_class">
 			Rank: <%= @sen_sen.state_rank %>, Class: <%= @sen_sen.senate_class %>	
 		</div>
+		<div id="rep_term_start">
+                        Term Start: <%= @sen_sen.term_start %>
+                </div>
+                <div id="rep_term_end">
+                        Term End: <%= @sen_sen.term_end %>
+                </div>
+                <div id="rep_website">
+                        <%= link_to @sen_sen.website, @sen_sen.website, :target => "_blank" %>
+                </div>
+
+                <div id="sen_sen_coms">
+                        Committee Memberships:
+                        <% @counter_sen_sen_coms = 1 %>
+                        <% @sen_sen_coms.each do |ssc| %>
+                                <div class="committee_name"> <%= @counter_sen_sen_coms %>. <%= ssc.name %> ( <%= ssc.chamber %> ) </div>
+                        <% @counter_sen_sen_coms += 1 %>
+                        <% end %>
+                </div>
+
+                <div id="sen_sen_subcoms">
+                        Subcommittee Memberships:
+			<% @counter_sen_sen_subcoms = 1 %>
+                        <% @sen_sen_subcoms.each do |sssc| %>
+                                <div class="committee_name"> <%= @counter_sen_sen_subcoms %>. <%= sssc.name %> ( <%= sssc.chamber %> ) </div>
+			<% @counter_sen_sen_subcoms += 1 %>
+                        <% end %>
+
+                </div>
+
 	</div>
 	<div id="sen_junior_image_info_div">
 		<div class="red congress_type_title"> Senator </div>
         	<%= image_tag(@sen_junior_image_ref, alt: "rep_junior_image", width: "100%") %>
 		<div id="sen_junior_name"> 
-			<%= @sen_jun.first_name %> <%= @sen_jun.middle_name %> <%= @sen_jun.last_name %> <%= @sen_jun.name_suffix %>(<%= @sen_jun.party %>) 
+		<strong><%= @sen_jun.first_name %> <%= @sen_jun.middle_name %> <%= @sen_jun.last_name %> <%= @sen_jun.name_suffix %>(<%= @sen_jun.party %>)</strong> 
 		</div>	
 		<div id="sen_jun_rank_and_class">
                         Rank: <%= @sen_jun.state_rank %>, Class: <%= @sen_jun.senate_class %>
                 </div>
+		<div id="rep_term_start">
+                        Term Start: <%= @sen_jun.term_start %>
+                </div>
+                <div id="rep_term_end">
+                        Term End: <%= @sen_jun.term_end %>
+                </div>
+                <div id="rep_website">
+                        <%= link_to @sen_jun.website, @sen_jun.website, :target => "_blank" %>
+                </div>
+
+                <div id="sen_jun_coms">
+                        Committee Memberships:
+                        <% @counter_sen_jun_coms = 1 %>
+                        <% @sen_jun_coms.each do |sjc| %>
+                                <div class="committee_name"> <%= @counter_sen_jun_coms %>. <%= sjc.name %> ( <%= sjc.chamber %> ) </div>
+                        <% @counter_sen_jun_coms += 1 %>
+                        <% end %>
+                </div>
+
+                <div id="sen_jun_subcoms">
+                        Subcommittee Memberships:
+                        <% @counter_sen_jun_subcoms = 1 %>
+                        <% @sen_jun_subcoms.each do |sjsc| %>
+                                <div class="committee_name"> <%= @counter_sen_jun_subcoms %>. <%= sjsc.name %> ( <%= sjsc.chamber %> ) </div>
+                        <% @counter_sen_jun_subcoms += 1 %>
+                        <% end %>
+
+                </div>
+
 	</div>
 </div>
 
@@ -59,5 +143,13 @@
 
 </div>
 </div> <!-- end div#vi_float_right_top -->
+
+<div id="vi_page_bottom">
+
+
+
+
+</div> <!-- end div#vi_page_bottom -->
+
 
 </div>

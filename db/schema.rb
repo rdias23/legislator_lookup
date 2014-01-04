@@ -11,7 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131229224032) do
+ActiveRecord::Schema.define(version: 20140103235518) do
+
+  create_table "coms", force: true do |t|
+    t.string   "chamber"
+    t.string   "committee_id"
+    t.string   "name"
+    t.string   "parent_committee_id"
+    t.boolean  "subcommittee"
+    t.integer  "rep_id"
+    t.integer  "sen_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "coms", ["rep_id"], name: "index_coms_on_rep_id"
+  add_index "coms", ["sen_id"], name: "index_coms_on_sen_id"
 
   create_table "reps", force: true do |t|
     t.string   "first_name"

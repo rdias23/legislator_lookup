@@ -40,10 +40,10 @@ class HomeController < ApplicationController
 
 	api_key = "f415f68ddbbb41d38868bb15cab0837e"
 
-        venue_json = RestClient.get("http://congress.api.sunlightfoundation.com/legislators/locate?latitude=#{@venue.latitude}&longitude=#{@venue.longitude}&apikey=#{api_key}")
-	venue_result_hash = JSON.load(venue_json)
+        leg_json = RestClient.get("http://congress.api.sunlightfoundation.com/legislators/locate?latitude=#{@venue.latitude}&longitude=#{@venue.longitude}&apikey=#{api_key}")
+	leg_result_hash = JSON.load(leg_json)
 
-	venue_result_hash["results"].each do |vrhr|
+	leg_result_hash["results"].each do |vrhr|
 		if (vrhr["title"] == "Rep")
 			params[:first_name] = vrhr["first_name"]
 			params[:last_name] = vrhr["last_name"]
@@ -75,6 +75,27 @@ class HomeController < ApplicationController
 			@rep = Rep.create(rep_params)
 			@venue.reps << @rep
 
+			rep_json = RestClient.get("http://congress.api.sunlightfoundation.com/committees?member_ids=#{@rep.bioguide_id}&apikey=#{api_key}")
+			rep_result_hash = JSON.load(rep_json)
+			
+				rep_result_hash["results"].each do |rrhr|
+					if(rrhr["subcommittee"] == false)
+						params[:chamber] = rrhr["chamber"]
+						params[:committee_id] = rrhr["committee_id"]
+						params[:name] = rrhr["name"]
+						params[:subcommittee] = rrhr["subcommittee"]
+						@com = Com.create(com_params)
+                        			@rep.coms << @com
+					else
+						params[:chamber] = rrhr["chamber"]
+                                                params[:committee_id] = rrhr["committee_id"]
+						params[:parent_committee_id] = rrhr["parent_committee_id"]
+                                                params[:name] = rrhr["name"]
+                                                params[:subcommittee] = rrhr["subcommittee"]
+						@com = Com.create(com_params)
+                                                @rep.coms << @com
+					end
+				end
 		else
 			if (vrhr["state_rank"] == "junior")
 				params[:first_name] = vrhr["first_name"]
@@ -108,6 +129,28 @@ class HomeController < ApplicationController
 
 				@sen_jun = Sen.create(sen_params)
 				@venue.sens << @sen_jun
+
+				sen_jun_json = RestClient.get("http://congress.api.sunlightfoundation.com/committees?member_ids=#{@sen_jun.bioguide_id}&apikey=#{api_key}")
+                        	sen_jun_result_hash = JSON.load(sen_jun_json)
+
+                                sen_jun_result_hash["results"].each do |sjrhr|
+                                        if(sjrhr["subcommittee"] == false)
+                                                params[:chamber] = sjrhr["chamber"]
+                                                params[:committee_id] = sjrhr["committee_id"]
+                                                params[:name] = sjrhr["name"]
+                                                params[:subcommittee] = sjrhr["subcommittee"]
+                                                @com = Com.create(com_params)
+                                                @sen_jun.coms << @com
+                                        else
+                                                params[:chamber] = sjrhr["chamber"]
+                                                params[:committee_id] = sjrhr["committee_id"]
+                                                params[:parent_committee_id] = sjrhr["parent_committee_id"]
+                                                params[:name] = sjrhr["name"]
+                                                params[:subcommittee] = sjrhr["subcommittee"]
+                                                @com = Com.create(com_params)
+                                                @sen_jun.coms << @com
+                                        end
+                                end
 			else
 				params[:first_name] = vrhr["first_name"]
                                 params[:last_name] = vrhr["last_name"]
@@ -140,6 +183,28 @@ class HomeController < ApplicationController
     
                                 @sen_sen = Sen.create(sen_params)
 				@venue.sens << @sen_sen
+
+                                sen_sen_json = RestClient.get("http://congress.api.sunlightfoundation.com/committees?member_ids=#{@sen_sen.bioguide_id}&apikey=#{api_key}")
+                                sen_sen_result_hash = JSON.load(sen_sen_json)
+                                
+                                sen_sen_result_hash["results"].each do |ssrhr|
+                                        if(ssrhr["subcommittee"] == false)
+                                                params[:chamber] = ssrhr["chamber"]
+                                                params[:committee_id] = ssrhr["committee_id"]
+                                                params[:name] = ssrhr["name"]
+                                                params[:subcommittee] = ssrhr["subcommittee"]
+                                                @com = Com.create(com_params)
+                                                @sen_sen.coms << @com
+                                        else
+                                                params[:chamber] = ssrhr["chamber"]
+                                                params[:committee_id] = ssrhr["committee_id"]
+                                                params[:parent_committee_id] = ssrhr["parent_committee_id"]
+                                                params[:name] = ssrhr["name"]
+                                                params[:subcommittee] = ssrhr["subcommittee"]
+                                                @com = Com.create(com_params)
+                                                @sen_sen.coms << @com
+                                        end
+                                end
 			end
 		end
 	end
@@ -148,6 +213,14 @@ class HomeController < ApplicationController
 	@sen_senior_image_ref = '/congress/' + @venue.sens.where(:state_rank => "senior")[0].bioguide_id.to_s + '.jpg'
 	@sen_junior_image_ref = '/congress/' + @venue.sens.where(:state_rank => "junior")[0].bioguide_id.to_s + '.jpg'
 
+	@rep_coms = @rep.coms.where(:subcommittee => false)
+	@rep_subcoms = @rep.coms.where(:subcommittee => true)
+
+        @sen_jun_coms = @sen_jun.coms.where(:subcommittee => false)
+        @sen_jun_subcoms = @sen_jun.coms.where(:subcommittee => true)
+
+        @sen_sen_coms = @sen_sen.coms.where(:subcommittee => false)
+        @sen_sen_subcoms = @sen_sen.coms.where(:subcommittee => true)
 
     respond_to do |format|
         format.js {render :layout => false}
@@ -178,6 +251,10 @@ class HomeController < ApplicationController
 
   def sen_params
     params.permit(:first_name, :last_name, :middle_name, :name_suffix, :gender, :title, :bioguide_id, :birthday, :chamber, :contact_form, :district, :facebook_id, :fax, :in_office, :nickname, :office, :party, :phone, :state, :state_name, :term_end, :term_start, :twitter_id, :website, :youtube_id, :venue_id, :state_rank, :senate_class)
+  end
+
+  def com_params
+    params.permit(:chamber, :committee_id, :name, :parent_committee_id, :subcommittee, :rep_id, :sen_id) 
   end
 end
 

@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  chamber: MyString
+  committee_id: MyString
+  name: MyString
+  parent_committee_id: MyString
+  subcommittee: false
+  rep_id: 
+  sen_id: 
+
+two:
+  chamber: MyString
+  committee_id: MyString
+  name: MyString
+  parent_committee_id: MyString
+  subcommittee: false
+  rep_id: 
+  sen_id: 
