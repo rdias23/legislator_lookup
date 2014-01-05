@@ -61,6 +61,8 @@ Legislatorlookup::Application.routes.draw do
   post 'new_venue' => 'home#new_venue'
   get 'new_venue' => 'home#new_venue'
 
+  patch 'update_zoom' => 'home#update_zoom'
+
   post 'bookmark_venue' => 'home#bookmark_venue'
   patch 'bookmark_venue' => 'home#bookmark_venue'
 end

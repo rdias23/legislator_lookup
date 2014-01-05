@@ -96,7 +96,59 @@ class HomeController < ApplicationController
                                                 @rep.coms << @com
 					end
 				end
-		else
+		elsif (vrhr["title"] == "Del")
+			params[:first_name] = vrhr["first_name"]
+                        params[:last_name] = vrhr["last_name"]
+                        params[:middle_name] = vrhr["middle_name"]
+                        params[:name_suffix] = vrhr["name_suffix"]
+                        params[:gender] = vrhr["gender"]
+                        params[:title] = vrhr["title"]
+                        params[:bioguide_id] = vrhr["bioguide_id"]
+                        params[:birthday] = vrhr["birthday"]
+                        params[:chamber] = vrhr["chamber"]
+                        params[:contact_form] = vrhr["contact_form"]
+                        params[:district] = vrhr["district"]
+                        params[:facebook_id] = vrhr["facebook_id"]
+                        params[:fax] = vrhr["fax"]
+                        params[:in_office] = vrhr["in_office"]
+                        params[:nickname] = vrhr["nickname"]
+                        params[:office] = vrhr["office"]
+                        params[:party] = vrhr["party"]
+                        params[:phone] = vrhr["phone"]
+                        params[:state] = vrhr["state"]
+                        params[:state_name] = vrhr["state_name"]
+                        params[:term_end] = vrhr["term_end"]
+                        params[:term_start] = vrhr["term_start"]
+                        params[:twitter_id] = vrhr["twitter_id"]
+                        params[:website] = vrhr["website"]
+                        params[:youtube_id] = vrhr["youtube_id"]
+                        params[:venue_id] = @venue.id
+
+                        @del = Del.create(del_params)
+                        @venue.dels << @del
+
+                        del_json = RestClient.get("http://congress.api.sunlightfoundation.com/committees?member_ids=#{@del.bioguide_id}&apikey=#{api_key}")
+                        del_result_hash = JSON.load(del_json)
+
+                                del_result_hash["results"].each do |drhr|
+                                        if(drhr["subcommittee"] == false)
+                                                params[:chamber] = drhr["chamber"]
+                                                params[:committee_id] = drhr["committee_id"]
+                                                params[:name] = drhr["name"]
+                                                params[:subcommittee] = drhr["subcommittee"]
+                                                @com = Com.create(com_params)
+                                                @del.coms << @com
+                                        else
+                                                params[:chamber] = drhr["chamber"]
+                                                params[:committee_id] = drhr["committee_id"]
+                                                params[:parent_committee_id] = drhr["parent_committee_id"]
+                                                params[:name] = drhr["name"]
+                                                params[:subcommittee] = drhr["subcommittee"]
+                                                @com = Com.create(com_params)
+                                                @del.coms << @com
+                                        end
+                                end
+		elsif (vrhr["title"] == "Sen")
 			if (vrhr["state_rank"] == "junior")
 				params[:first_name] = vrhr["first_name"]
                         	params[:last_name] = vrhr["last_name"]
@@ -206,21 +258,49 @@ class HomeController < ApplicationController
                                         end
                                 end
 			end
+		
+		else
 		end
 	end
 
-	@rep_image_ref = '/congress/' + @venue.reps[0].bioguide_id.to_s + '.jpg'
-	@sen_senior_image_ref = '/congress/' + @venue.sens.where(:state_rank => "senior")[0].bioguide_id.to_s + '.jpg'
-	@sen_junior_image_ref = '/congress/' + @venue.sens.where(:state_rank => "junior")[0].bioguide_id.to_s + '.jpg'
+	if @venue.reps[0] != nil
+		@rep_image_ref = '/congress/' + @venue.reps[0].bioguide_id.to_s + '.jpg'
+	else
+	end
 
-	@rep_coms = @rep.coms.where(:subcommittee => false)
-	@rep_subcoms = @rep.coms.where(:subcommittee => true)
+	if @venue.sens.where(:state_rank => "senior")[0] != nil
+		@sen_senior_image_ref = '/congress/' + @venue.sens.where(:state_rank => "senior")[0].bioguide_id.to_s + '.jpg'
+	else
+	end
 
-        @sen_jun_coms = @sen_jun.coms.where(:subcommittee => false)
-        @sen_jun_subcoms = @sen_jun.coms.where(:subcommittee => true)
+	if @venue.sens.where(:state_rank => "junior")[0] != nil
+		@sen_junior_image_ref = '/congress/' + @venue.sens.where(:state_rank => "junior")[0].bioguide_id.to_s + '.jpg'
+	else
+	end
 
-        @sen_sen_coms = @sen_sen.coms.where(:subcommittee => false)
-        @sen_sen_subcoms = @sen_sen.coms.where(:subcommittee => true)
+	if @venue.dels[0] != nil
+                @del_image_ref = '/congress/' + @venue.dels[0].bioguide_id.to_s + '.jpg'
+        else
+        end
+
+
+	(@rep_coms = @rep.coms.where(:subcommittee => false)) if (@rep != nil)
+	(@rep_subcoms = @rep.coms.where(:subcommittee => true)) if (@rep != nil)
+
+        (@sen_jun_coms = @sen_jun.coms.where(:subcommittee => false)) if (@sen_jun != nil)
+        (@sen_jun_subcoms = @sen_jun.coms.where(:subcommittee => true)) if (@sen_jun != nil)
+
+        (@sen_sen_coms = @sen_sen.coms.where(:subcommittee => false)) if (@sen_sen != nil)
+        (@sen_sen_subcoms = @sen_sen.coms.where(:subcommittee => true)) if (@sen_sen != nil)
+
+        (@del_coms = @del.coms.where(:subcommittee => false)) if (@del != nil)
+        (@del_subcoms = @del.coms.where(:subcommittee => true)) if (@del != nil)
+
+	@zooms = Zoom.all.where(:user_id => @user.id)
+	@zooms.each { |zm| zm.destroy }
+
+	@zoom = Zoom.create(zoom_params)
+	@user.zooms << @zoom
 
     respond_to do |format|
         format.js {render :layout => false}
@@ -239,6 +319,19 @@ class HomeController < ApplicationController
 
   end
 
+  def update_zoom
+	@zoom = Zoom.find(params[:id])
+	@zoom.level = params[:zoom][:level]
+	@zoom.save
+
+	@user = User.find(params[:user_id])
+	@venue  = @user.venues.order("id ASC").last
+
+    respond_to do |format|
+        format.js {render :layout => false}
+    end 
+  end
+
 
   private
   def venue_params
@@ -253,8 +346,16 @@ class HomeController < ApplicationController
     params.permit(:first_name, :last_name, :middle_name, :name_suffix, :gender, :title, :bioguide_id, :birthday, :chamber, :contact_form, :district, :facebook_id, :fax, :in_office, :nickname, :office, :party, :phone, :state, :state_name, :term_end, :term_start, :twitter_id, :website, :youtube_id, :venue_id, :state_rank, :senate_class)
   end
 
+  def del_params
+    params.permit(:first_name, :last_name, :middle_name, :name_suffix, :gender, :title, :bioguide_id, :birthday, :chamber, :contact_form, :district, :facebook_id, :fax, :in_office, :nickname, :office, :party, :phone, :state, :state_name, :term_end, :term_start, :twitter_id, :website, :youtube_id, :venue_id, :state_rank, :senate_class)
+  end
+
   def com_params
-    params.permit(:chamber, :committee_id, :name, :parent_committee_id, :subcommittee, :rep_id, :sen_id) 
+    params.permit(:chamber, :committee_id, :name, :parent_committee_id, :subcommittee, :rep_id, :sen_id, :del_id) 
+  end
+	
+  def zoom_params
+   params.permit(:level, :user_id)
   end
 end
 

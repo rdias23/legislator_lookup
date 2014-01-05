@@ -10,6 +10,8 @@
 </div>
 
 <div id="rep_and_sens_pictures">
+
+<% if @rep != nil %>
 	<div id="rep_image_info_div">
 		<div class="red congress_type_title"> Representative </div>
         	<%= image_tag(@rep_image_ref, alt: "rep_image", width: "100%") %>
@@ -25,8 +27,22 @@
 		<div id="rep_term_end">
 			Term End: <%= @rep.term_end %>
 		</div>
+
+		<div id="rep_birthday">
+			Birthday: <%= @rep.birthday %>
+		</div>
+
 		<div id="rep_website">
 			<%= link_to @rep.website, @rep.website, :target => "_blank" %> 
+		</div>
+
+		<div id="rep_contact_information" class="congress_contact_info">
+			<div id="rep_phone">
+				Phone: <%= @rep.phone %>
+			</div>
+			<div id="rep_office">
+				Office: <%= @rep.office %>
+			</div>
 		</div>
 	
 		<div id="rep_coms">
@@ -48,6 +64,11 @@
 
 		</div>
 	</div>
+<% else %>
+
+<% end %>
+
+<% if @sen_sen != nil %>
 	<div id="sen_senior_image_info_div">
 		<div class="red congress_type_title"> Senator </div>
         	<%= image_tag(@sen_senior_image_ref, alt: "sen_senior_image", width: "100%") %>
@@ -57,14 +78,28 @@
 		<div id="sen_sen_rank_and_class">
 			Rank: <%= @sen_sen.state_rank %>, Class: <%= @sen_sen.senate_class %>	
 		</div>
-		<div id="rep_term_start">
+		<div id="sen_sen_term_start">
                         Term Start: <%= @sen_sen.term_start %>
                 </div>
-                <div id="rep_term_end">
+                <div id="sen_sen_term_end">
                         Term End: <%= @sen_sen.term_end %>
                 </div>
-                <div id="rep_website">
+
+                <div id="sen_sen_birthday">
+                        Birthday: <%= @sen_sen.birthday %>
+                </div>
+
+                <div id="sen_sen_website">
                         <%= link_to @sen_sen.website, @sen_sen.website, :target => "_blank" %>
+                </div>
+
+		<div id="sen_sen_contact_information" class="congress_contact_info">
+                        <div id="sen_sen_phone">
+                                Phone: <%= @sen_sen.phone %>
+                        </div>
+                        <div id="sen_sen_office">
+                                Office: <%= @sen_sen.office %>
+                        </div>
                 </div>
 
                 <div id="sen_sen_coms">
@@ -87,23 +122,42 @@
                 </div>
 
 	</div>
+<% else %>
+
+<% end %>
+
+<% if @sen_jun != nil %>
 	<div id="sen_junior_image_info_div">
 		<div class="red congress_type_title"> Senator </div>
-        	<%= image_tag(@sen_junior_image_ref, alt: "rep_junior_image", width: "100%") %>
+        	<%= image_tag(@sen_junior_image_ref, alt: "sen_junior_image", width: "100%") %>
 		<div id="sen_junior_name"> 
 		<strong><%= @sen_jun.first_name %> <%= @sen_jun.middle_name %> <%= @sen_jun.last_name %> <%= @sen_jun.name_suffix %>(<%= @sen_jun.party %>)</strong> 
 		</div>	
 		<div id="sen_jun_rank_and_class">
                         Rank: <%= @sen_jun.state_rank %>, Class: <%= @sen_jun.senate_class %>
                 </div>
-		<div id="rep_term_start">
+		<div id="sen_jun_term_start">
                         Term Start: <%= @sen_jun.term_start %>
                 </div>
-                <div id="rep_term_end">
+                <div id="sen_jun_term_end">
                         Term End: <%= @sen_jun.term_end %>
                 </div>
-                <div id="rep_website">
+
+                <div id="sen_jun_birthday">
+                        Birthday: <%= @sen_jun.birthday %>
+                </div>
+
+                <div id="sen_jun_website">
                         <%= link_to @sen_jun.website, @sen_jun.website, :target => "_blank" %>
+                </div>
+
+                <div id="sen_jun_contact_information" class="congress_contact_info">
+                        <div id="sen_jun_phone">
+                                Phone: <%= @sen_jun.phone %>
+                        </div>
+                        <div id="sen_jun_office">
+                                Office: <%= @sen_jun.office %>
+                        </div>
                 </div>
 
                 <div id="sen_jun_coms">
@@ -122,10 +176,70 @@
                                 <div class="committee_name"> <%= @counter_sen_jun_subcoms %>. <%= sjsc.name %> ( <%= sjsc.chamber %> ) </div>
                         <% @counter_sen_jun_subcoms += 1 %>
                         <% end %>
-
                 </div>
 
 	</div>
+<% else %>
+        
+<% end %>
+
+<% if @del != nil %>
+        <div id="del_image_info_div">
+                <div class="red congress_type_title"> Delegate </div>
+                <%= image_tag(@del_image_ref, alt: "del_image", width: "100%") %>
+                <div id="del_name">
+                <strong><%= @del.first_name %> <%= @del.middle_name %> <%= @del.last_name %> <%= @del.name_suffix %>(<%= @del.party %>)</strong>
+                </div>
+                <div id="del_rank_and_class">
+                        Rank: <%= @del.state_rank %>, Class: <%= @del.senate_class %>
+                </div>
+                <div id="del_term_start">
+                        Term Start: <%= @del.term_start %>
+                </div>
+                <div id="del_term_end">
+                        Term End: <%= @del.term_end %>
+                </div>
+
+                <div id="del_birthday">
+                        Birthday: <%= @del.birthday %>
+                </div>
+
+                <div id="del_website">
+                        <%= link_to @del.website, @del.website, :target => "_blank" %>
+                </div>
+
+                <div id="del_contact_information" class="congress_contact_info">
+                        <div id="del_phone">
+                                Phone: <%= @del.phone %>
+                        </div>
+                        <div id="del_office">
+                                Office: <%= @del.office %>
+                        </div>
+                </div>
+
+                <div id="del_coms">
+                        Committee Memberships:
+                        <% @counter_del_coms = 1 %>
+                        <% @del_coms.each do |dc| %>
+                                <div class="committee_name"> <%= @counter_del_coms %>. <%= dc.name %> ( <%= dc.chamber %> ) </div>
+                        <% @counter_del_coms += 1 %>
+                        <% end %>
+                </div>
+
+                <div id="del_subcoms">
+                        Subcommittee Memberships:
+                        <% @counter_del_subcoms = 1 %>
+                        <% @del_subcoms.each do |dsc| %>
+                                <div class="committee_name"> <%= @counter_del_subcoms %>. <%= dsc.name %> ( <%= dsc.chamber %> ) </div>
+                        <% @counter_del_subcoms += 1 %>
+                        <% end %>
+                </div>
+
+        </div>
+<% else %>
+
+<% end %>
+ 
 </div>
 
 </div> <!-- end div#vi_float_left_top -->
@@ -137,17 +251,13 @@
 
 
 <div id="vi_google_static_map">
-
-	<%= image_tag "http://maps.google.com/maps/api/staticmap?size=617x400&sensor=false&zoom=6&markers=#{@venue.latitude}%2C#{@venue.longitude}" %>
+	<%= render(:partial => 'home/google_static_map') %>
+	<%#= image_tag "http://maps.google.com/maps/api/staticmap?size=617x400&sensor=false&zoom=6&markers=#{@venue.latitude}%2C#{@venue.longitude}" %>
 	<%#= image_tag "http://maps.google.com/maps/api/staticmap?size=450x300&sensor=false&zoom=16&markers=#{@venue.latitude}%2C#{@venue.longitude}" %>
-
 </div>
 </div> <!-- end div#vi_float_right_top -->
 
 <div id="vi_page_bottom">
-
-
-
 
 </div> <!-- end div#vi_page_bottom -->
 

@@ -5,7 +5,7 @@ class Venue < ActiveRecord::Base
   belongs_to :user
   has_many :reps, dependent: :destroy
   has_many :sens, dependent: :destroy
-
+  has_many :dels, dependent: :destroy
 
 
 end

@@ -1038,11 +1038,6 @@
 		}
 }
 
-#venue_information {
-	background-color: white;
-	min-height: 660px;
-
-}
 div#street_number_info, div#street_name_info, div#city_info, div#state_info, div#zipcode_info {
 	float: left;
 	margin-right: 20px;
@@ -1101,7 +1096,7 @@ input#bookmark_that_venue {
 	width: 100%;
 }
 
-div#rep_image_info_div, div#sen_senior_image_info_div, div#sen_junior_image_info_div {
+div#rep_image_info_div, div#sen_senior_image_info_div, div#sen_junior_image_info_div, div#del_image_info_div {
 	width: 33.3333%;
 	float: left;
 }
@@ -1114,6 +1109,7 @@ div.congress_type_title {
 	text-align: center;
 	font-size: 1.5em;
 	background-color: black;
+	min-height: 28px;
 }
 
 div#bookmark_flash_notice {
@@ -1136,4 +1132,23 @@ div.committee_name {
 
 div#rep_name, div#sen_junior_name, div#sen_senior_name {
 	font-size: 1.4em;
+}
+
+div.congress_contact_info {
+	font-size: .8em;
+}
+
+.hide_this_thing {
+                @extend .hide-for-small;
+                @extend .hide-for-medium-down;
+                @extend .hide-for-medium;
+                @extend .hide-for-medium-up;
+                @extend .hide-for-large-down;
+                @extend .hide-for-large;
+                @extend .hide-for-large-up;
+                @extend .hide-for-xlarge;
+}
+
+form[id*='edit_zoom_'] {
+	margin-bottom: 0px;
 }
