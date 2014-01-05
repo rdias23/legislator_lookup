@@ -1,8 +1,8 @@
 <div id="venue_information">
-
 <div id="vi_float_left_top">
 
 <div id="vi_bookmark_button">
+	
         <%= render(:partial => 'home/bookmark_button_form') %>
 </div>
 <div id="vi_bookmark_button_notice">
@@ -191,7 +191,7 @@
                 <strong><%= @del.first_name %> <%= @del.middle_name %> <%= @del.last_name %> <%= @del.name_suffix %>(<%= @del.party %>)</strong>
                 </div>
                 <div id="del_rank_and_class">
-                        Rank: <%= @del.state_rank %>, Class: <%= @del.senate_class %>
+                      <!--  Rank: <%#= @del.state_rank %>, Class: <%#= @del.senate_class %> -->
                 </div>
                 <div id="del_term_start">
                         Term Start: <%= @del.term_start %>
@@ -249,16 +249,15 @@
 	<%= @venue.address %>
 </div>
 
-
 <div id="vi_google_static_map">
 	<%= render(:partial => 'home/google_static_map') %>
 	<%#= image_tag "http://maps.google.com/maps/api/staticmap?size=617x400&sensor=false&zoom=6&markers=#{@venue.latitude}%2C#{@venue.longitude}" %>
 	<%#= image_tag "http://maps.google.com/maps/api/staticmap?size=450x300&sensor=false&zoom=16&markers=#{@venue.latitude}%2C#{@venue.longitude}" %>
 </div>
+
 </div> <!-- end div#vi_float_right_top -->
 
 <div id="vi_page_bottom">
-
 </div> <!-- end div#vi_page_bottom -->
 
 

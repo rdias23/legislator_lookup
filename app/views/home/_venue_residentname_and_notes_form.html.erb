@@ -1,0 +1,16 @@
+<div id="update_venue_form">
+
+<fieldset class="fieldset">
+<legend> Add Resident Name and Notes to Address! </legend>
+<%= form_for(@venue, remote:true, url: {action: "update_venue"}, html: {class: "nifty form"}) do |f| %>
+	<%= hidden_field_tag(:user_id, @user.id) %>
+	<%= hidden_field_tag(:id, @venue.id) %>
+		<span class="edit_form_white_text"> Resident First Name: </span> <%= f.text_field :resident_first %> 
+		<span class="edit_form_white_text"> Resident Last Name: </span> <%= f.text_field :resident_last %>
+		<span class="edit_form_white_text"> Notes: </span> <%= f.text_area :notes %>
+	<%= f.submit "Update Address Information", :class => "radius button hidden tiny secondary" %>
+	<span class="red"><%= flash[:notice] %></span>
+<% end %>
+</fieldset>
+
+</div>

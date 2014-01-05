@@ -1,4 +1,5 @@
 $( "#search_results" ).html( "<%= escape_javascript( render( :partial => "home/search_results")) %>" );
+$( "#vi_address_additional_fields" ).html( "<%= escape_javascript( render( :partial => "home/venue_residentname_and_notes_form" )) %>" );
 $('#venue_streetnumber').val('');
 $('#venue_streetname').val('');
 $('#venue_city').val('');

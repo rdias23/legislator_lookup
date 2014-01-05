@@ -7,7 +7,7 @@
 	<h1 style="margin-left: 10px;">
 
 	<a href="/">
-		Legislator Lookup!
+		<span class="red">L</span>egislator <span class="red">L</span>ookup!
 	</a>
 	</h1>
    </li>
@@ -27,6 +27,8 @@
 		<li><%= link_to('Logout', '/users/sign_out', :method => :delete ) %> </li>
 	</ul>
 	</li>
+
+	<li><%= link_to('Show Bookmarks', '/show_bookmarks', :method => :get, :remote => true) %> </li>
   <% else %>
   <% end %>
 

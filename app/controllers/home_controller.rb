@@ -307,6 +307,18 @@ class HomeController < ApplicationController
     end	
   end
 
+  def update_venue
+	@user = User.find(params[:user_id])
+	@venue = Venue.find(params[:id])
+	
+	@venue.update_attributes(params.require(:venue).permit(:resident_first, :resident_last, :notes))
+	flash[:notice] = "Address Information Updated! (remember to bookmark)"
+
+    respond_to do |format|
+        format.js {render :layout => false}
+    end    
+  end
+
   def bookmark_venue
 	@venue = Venue.find(params[:id])
 	@venue.bookmark = true
@@ -332,6 +344,14 @@ class HomeController < ApplicationController
     end 
   end
 
+  def show_bookmarks
+	@user = current_user
+	@venues_bookmarked = @user.venues.where(:bookmark => true)
+
+    respond_to do |format|
+        format.js {render :layout => false}
+    end
+  end
 
   private
   def venue_params
