@@ -40,6 +40,29 @@
 
 </section>
 </nav>
+<!-- End Top Bar -->
+<!-- End Navigation -->
+
+<% if !@auth.present? %>
+<div id="call_to_action">
+<div class="row-special">
+<div class="large-3 columns screen">
+<h2> Instantly find <span class="red"> Representative </span> and <span class="red"> Senator </span> information for any given address!</h2>
+<h3> Great for: </h3>
+
+<div class="great_for">
+<span class="red"> Political Action Committees</span>,</br>
+<span class="red">Grass Roots Campaigns</span> and</br> 
+<span class="red">Advocacy Groups</span> of all types! 
+</div></br>
+
+<h3> Instantly pull up <span class="red">Contact Information</span>!</h3></br>
+<h3> View <span class="red">Committee</span> and <span class="red">Subcommittee</span>membership too!</h3></br>
+
+</div>
+</div>
+</div>
+<% end %>
 
 <div id="login" class="reveal-modal [small]">
   <%= render :template => "devise/sessions/new",

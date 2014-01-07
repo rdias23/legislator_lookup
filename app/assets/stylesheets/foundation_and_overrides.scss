@@ -1161,3 +1161,50 @@ form[action*='/delete_bookmark?id='], input[value*='Delete Bookmark'] {
 	padding-top: 15px;
 }
 
+.screen {
+                position: absolute;
+                top: 120px;
+                left: 300px;
+                min-width: 415px;
+                background: rgb(0, 0, 0);
+                background-color: rgba(0, 0, 0, .5);
+                padding: 10px;
+
+}
+
+#call_to_action h2 {
+                color: white;
+                font-family:Lucida Sans Unicode;
+                font-style: italic;
+                width: 350px;
+                text-align: right;
+                line-height: 36px;
+}
+
+#call_to_action h3 {
+                color: #00FFFF;
+                font-family:Lucida Sans Unicode;
+                font-size: 1.6em;
+                margin: 0px;
+                padding: 0px;
+                line-height:26px;
+                width: 290px;
+                text-align: right;
+                margin-left: 50px;
+}
+
+#call_to_action div.great_for {
+		color: #00FFFF;
+                font-family:Lucida Sans Unicode;
+                font-size: 1.1em;
+                margin: 0px;
+                padding: 0px;
+                line-height:16px;
+                text-align: right;
+		margin-right: 54px;
+}
+
+#call_to_action h3 span.red {
+                font-style: italic;
+}
+
