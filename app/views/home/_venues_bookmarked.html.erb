@@ -1,5 +1,59 @@
+<div id="venues_bookmarked_container">
+
+<h5 class="white_text">Bookmarked Addresses</h5>
+
+<table class="bookmarked_table" border="1">
+
+<tr>
+<th>Address</th>
+<th>Resident Name</th>
+<th>Date Bookmarked</th>
+<th>Representative</th>
+<th>Senior Senator</th>
+<th>Junior Senator</th>
+<th>View Address Information</th>
+<th>Destroy Bookmark</th>
+</tr>
+
 <% @venues_bookmarked.each do |vb| %>
-<div>
-<%= vb.address %>
-</div>
+
+<tr>
+<td> <%= vb.address %> </td>
+
+<td> <%= vb.residentname %> </td>
+
+<td> <%= vb.created_at.strftime("%B %e, %Y at %I:%M %p") %> </td>
+
+<td> 
+<%= (vb.reps[0].last_name) if (vb.reps[0] != nil) %> 
+<%= (vb.dels[0].last_name + " (*Delegate)") if (vb.dels[0] != nil) %>
+</td>
+
+<td> <%= (vb.sens.where(:state_rank => "senior")[0].last_name) if (vb.sens.where(:state_rank => "senior")[0] != nil) %> </td>
+
+<td> <%= (vb.sens.where(:state_rank => "junior")[0].last_name) if (vb.sens.where(:state_rank => "junior")[0] != nil) %> </td>
+
+<td> 
+
+        <%= form_for(@venues_bookmarked.where(:id => vb.id)[0], remote:true, url: {action: "new_venue"}, html: {class: "nifty form"}) do |t| %>
+                <%= hidden_field_tag(:user_id, @user.id) %>
+                <%= hidden_field_tag(:id, vb.id) %>
+		<%= hidden_field_tag(:bookmark, vb.bookmark) %>
+                <%= t.submit "View Venue Info", :class => 'radius button hidden large success' %>
+        <% end %>
+
+</td>
+
+<td> 
+
+<%= button_to "Destroy Bookmark", { action: "delete_bookmark", id: vb.id },
+                                method: :delete, :remote => true, data: { confirm: "Delete this Bookmarked Address!?!? Are you sure?" }, class: "button large radius alert" %>
+
+</td>
+
+</tr>
+
 <% end %>
+
+</table>
+</div>

@@ -2,8 +2,11 @@
 <div id="vi_float_left_top">
 
 <div id="vi_bookmark_button">
-	
+   <% if @venue.bookmark == true %>
+	<span class="red">Address information has already been bookmarked! </span>
+   <% else %>	
         <%= render(:partial => 'home/bookmark_button_form') %>
+   <% end %>
 </div>
 <div id="vi_bookmark_button_notice">
 

@@ -28,7 +28,9 @@
 	</ul>
 	</li>
 
-	<li><%= link_to('Show Bookmarks', '/show_bookmarks', :method => :get, :remote => true) %> </li>
+	<li>
+		<%= link_to('Show Bookmarks', show_bookmarks_path(:id => @auth.id), :method => :get, :remote => true) %> 
+       </li>
   <% else %>
   <% end %>
 

@@ -1153,6 +1153,11 @@ form[id*='edit_zoom_'] {
 	margin-bottom: 0px;
 }
 
-span.edit_form_white_text {
+span.edit_form_white_text, .white_text {
 	color: white;
 }
+
+form[action*='/delete_bookmark?id='], input[value*='Delete Bookmark'] {
+	padding-top: 15px;
+}
+

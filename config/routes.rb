@@ -60,6 +60,7 @@ Legislatorlookup::Application.routes.draw do
   root :to => 'home#landing'
   post 'new_venue' => 'home#new_venue'
   get 'new_venue' => 'home#new_venue'
+  patch 'new_venue' => 'home#new_venue'
 
   get 'update_venue' => 'home#update_venue'
   patch 'update_venue' => 'home#update_venue'
@@ -70,4 +71,7 @@ Legislatorlookup::Application.routes.draw do
   patch 'bookmark_venue' => 'home#bookmark_venue'
 
   get 'show_bookmarks' => 'home#show_bookmarks'
+
+  delete 'delete_bookmark' => 'home#delete_bookmark'
+  get 'delete_bookmark' => 'home#delete_bookmark'
 end

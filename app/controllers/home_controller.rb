@@ -30,6 +30,9 @@ class HomeController < ApplicationController
                 vn.destroy
         end
 
+    if(params.has_key?(:bookmark))
+	@venue = Venue.find(params[:id])
+    else	
 	@space_string = " "
 	@comma_space_string = ", "
 	@comma_usa = ", USA"	
@@ -37,6 +40,7 @@ class HomeController < ApplicationController
 
 	@venue = Venue.create(venue_params)
 	@user.venues << @venue
+     end
 
 	api_key = "f415f68ddbbb41d38868bb15cab0837e"
 
@@ -310,8 +314,12 @@ class HomeController < ApplicationController
   def update_venue
 	@user = User.find(params[:user_id])
 	@venue = Venue.find(params[:id])
+
+	@space_string = " "
+
+	params[:venue][:residentname] = params[:venue][:resident_first] + @space_string + params[:venue][:resident_last]
 	
-	@venue.update_attributes(params.require(:venue).permit(:resident_first, :resident_last, :notes))
+	@venue.update_attributes(params.require(:venue).permit(:resident_first, :resident_last, :residentname, :notes))
 	flash[:notice] = "Address Information Updated! (remember to bookmark)"
 
     respond_to do |format|
@@ -345,12 +353,29 @@ class HomeController < ApplicationController
   end
 
   def show_bookmarks
+
+   if (params.has_key?(:id))
 	@user = current_user
-	@venues_bookmarked = @user.venues.where(:bookmark => true)
+        @venues_bookmarked = @user.venues.where(:bookmark => true)
 
     respond_to do |format|
         format.js {render :layout => false}
-    end
+    end      
+   else
+      redirect_to(home_index_path)
+   end
+  end
+
+  def delete_bookmark
+	@bookmark_to_destroy = Venue.find(params[:id])
+	@user = User.find(@bookmark_to_destroy.user.id)
+
+	@bookmark_to_destroy.destroy
+
+	@venues_bookmarked = @user.venues.where(:bookmark => true)
+    respond_to do |format|
+        format.js {render :layout => false}
+    end 
   end
 
   private
