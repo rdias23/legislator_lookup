@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   protect_from_forgery
   before_filter :authenticate
+  before_filter :update_sanitized_params, if: :devise_controller?
 
   private
   def authenticate
@@ -14,4 +15,7 @@ class ApplicationController < ActionController::Base
     redirect_to(root_path) if @auth.nil?
   end
 
+  def update_sanitized_params
+    devise_parameter_sanitizer.for(:sign_up) {|u| u.permit(:first_name, :last_name, :email, :password, :password_confirmation)}
+  end
 end
