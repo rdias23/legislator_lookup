@@ -306,6 +306,8 @@ class HomeController < ApplicationController
 	@zoom = Zoom.create(zoom_params)
 	@user.zooms << @zoom
 
+	flash[:notice2] = ""
+
     respond_to do |format|
         format.js {render :layout => false}
     end	
@@ -320,7 +322,7 @@ class HomeController < ApplicationController
 	params[:venue][:residentname] = params[:venue][:resident_first] + @space_string + params[:venue][:resident_last]
 	
 	@venue.update_attributes(params.require(:venue).permit(:resident_first, :resident_last, :residentname, :notes))
-	flash[:notice] = "Address Information Updated! (remember to bookmark)"
+	flash[:notice2] = "Address Information Updated! (remember to bookmark)"
 
     respond_to do |format|
         format.js {render :layout => false}
