@@ -305,6 +305,7 @@ class HomeController < ApplicationController
 
 	@zoom = Zoom.create(zoom_params)
 	@user.zooms << @zoom
+	@venue.zooms << @zoom
 
 	flash[:notice2] = ""
 
@@ -347,7 +348,7 @@ class HomeController < ApplicationController
 	@zoom.save
 
 	@user = User.find(params[:user_id])
-	@venue  = @user.venues.order("id ASC").last
+	@venue = @zoom.venue
 
     respond_to do |format|
         format.js {render :layout => false}
@@ -402,7 +403,7 @@ class HomeController < ApplicationController
   end
 	
   def zoom_params
-   params.permit(:level, :user_id)
+   params.permit(:level, :user_id, :venue_id)
   end
 end
 

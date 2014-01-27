@@ -6,6 +6,6 @@ class Venue < ActiveRecord::Base
   has_many :reps, dependent: :destroy
   has_many :sens, dependent: :destroy
   has_many :dels, dependent: :destroy
-
+  has_many :zooms, dependent: :destroy
 
 end
